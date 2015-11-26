@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">casey_millstein_fundamentals</string>
+    <string name="url">http://api.openweathermap.org/data/2.5/weather?appid=03448cd09fb9abed5bcc478766a88973&amp;units=imperial&amp;zip=</string>
+    <string name="countryCode">,us</string>
+</resources>
