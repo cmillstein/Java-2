@@ -1,29 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/fragment_container"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MainActivity"
+
     >
 
-    <EditText
-        android:layout_width="136dp"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:id="@+id/zipCode"
-        android:layout_gravity="left|top"
-        android:editable="true" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Search"
-        android:id="@+id/searchButton"
-        android:layout_gravity="center_horizontal|top" />
 
-    <ListView
-        android:layout_width="233dp"
-        android:layout_height="262dp"
-        android:id="@+id/zipCodeList"
-        android:layout_gravity="left|bottom" />
-</FrameLayout>
+
+</RelativeLayout>

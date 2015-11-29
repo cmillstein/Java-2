@@ -3,33 +3,26 @@ package com.example.caseymillstein.millstein_fundamentals;
 import android.app.Fragment;
 import android.app.ListFragment;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ListView;
+import android.view.ViewGroup;
 
 /**
  * Created by caseymillstein on 11/25/15.
  */
-public class WeatherListFragment extends ListFragment {
+public class WeatherListFragment extends Fragment {
 
     public static final String TAG = "WeatherListFragment.TAG";
-    public static WeatherListFragment newInstance() {
-        WeatherListFragment frag = new WeatherListFragment();
-        return frag;
-    }
 
-    public WeatherListFragment() {
-        super();
-    }
+   public static WeatherListFragment newInstance(){
 
-    @Override
-    public void onListItemClick(ListView l, View v, int position, long id) {
-        super.onListItemClick(l, v, position, id);
-    }
+       WeatherListFragment weatherFrag = new WeatherListFragment();
+       return weatherFrag;
+   }
 
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-    }
-
-
+ @Override
+    public View onCreateView(LayoutInflater _inflater, ViewGroup _container, Bundle _savedInstanceState){
+     View view = _inflater.inflate(R.layout.weather_list, _container, false);
+     return  view;
+ }
 }
