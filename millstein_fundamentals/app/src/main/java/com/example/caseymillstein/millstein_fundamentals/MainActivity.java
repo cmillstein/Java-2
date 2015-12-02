@@ -2,12 +2,24 @@ package com.example.caseymillstein.millstein_fundamentals;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import org.apache.commons.io.IOUtils;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -20,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         FragmentManager weatherManager = getFragmentManager();
         FragmentTransaction weatherTrans = weatherManager.beginTransaction();
@@ -37,6 +50,19 @@ public class MainActivity extends AppCompatActivity {
         displayTrans.commit();
 
 
+    }
+
+    //CONNECTION
+    protected boolean isOnline() {
+
+        ConnectivityManager manager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo network = manager.getActiveNetworkInfo();
+        if(network != null && network.isConnectedOrConnecting()){
+            return true;
+        } else {
+            return false;
+        }
 
     }
+
 }
