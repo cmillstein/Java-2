@@ -20,8 +20,11 @@ import android.widget.TextView;
 import org.apache.commons.io.IOUtils;
 import org.json.JSONObject;
 
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
 import java.io.UnsupportedEncodingException;
@@ -44,6 +47,8 @@ public class MainActivity extends AppCompatActivity implements WeatherListFragme
         setContentView(R.layout.activity_main);
 
 
+
+
     }
 
 
@@ -57,21 +62,42 @@ public class MainActivity extends AppCompatActivity implements WeatherListFragme
     public void containZip(String userTextString) {
         Log.i("TAG", userTextString);
 
-        try {
-            String safeURL = FEED_URL + URLEncoder.encode(userTextString, "UTF-8") + ",us";
-            URL url = new URL(safeURL);
+        if(isOnline()) {
 
-            AsynchronousTask asyncTask = new AsynchronousTask(this);
-            asyncTask.execute(url);
+            try {
+                String safeURL = FEED_URL + URLEncoder.encode(userTextString, "UTF-8") + ",us";
+                URL url = new URL(safeURL);
+
+                AsynchronousTask asyncTask = new AsynchronousTask(this);
+                asyncTask.execute(url);
 
 
-        } catch (MalformedURLException | UnsupportedEncodingException e) {
+            } catch (MalformedURLException | UnsupportedEncodingException e) {
 
 
-            e.printStackTrace();
+                e.printStackTrace();
+            }
+        }else{
+            DisplayFragment accessOffline = (DisplayFragment)getFragmentManager().findFragmentByTag(DisplayFragment.TAG);
+            Weather newObj = null;
+            try{
+                FileInputStream fis = openFileInput("File.txt");
+                ObjectInput ois = new ObjectInputStream(fis);
+                newObj = (Weather)ois.readObject();
+                ois.close();
+            }catch (Exception e){
+
+            }
+            if(newObj != null){
+                accessOffline = DisplayFragment.newInstance(newObj);
+            }else{
+                accessOffline.setDetails(newObj.getmWeatherMain(), newObj.getCity(), newObj.getmHumidity(), newObj.getmWeatherDescription());
+            }
         }
 
     }
+
+
 
     public class AsynchronousTask extends AsyncTask<URL, Integer, Weather> {
 
@@ -188,19 +214,21 @@ public class MainActivity extends AppCompatActivity implements WeatherListFragme
         }
 
 
-        //CONNECTION
-        protected boolean isOnline() {
 
-            ConnectivityManager manager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-            NetworkInfo network = manager.getActiveNetworkInfo();
-            if (network != null && network.isConnectedOrConnecting()) {
-                return true;
-            } else {
-                return false;
-            }
 
+
+
+    }
+    //CONNECTION
+    protected boolean isOnline() {
+
+        ConnectivityManager manager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo network = manager.getActiveNetworkInfo();
+        if (network != null && network.isConnectedOrConnecting()) {
+            return true;
+        } else {
+            return false;
         }
-
 
     }
 }
