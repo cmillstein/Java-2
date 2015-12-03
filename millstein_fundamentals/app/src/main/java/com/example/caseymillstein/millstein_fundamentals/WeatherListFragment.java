@@ -52,6 +52,7 @@ public class WeatherListFragment extends Fragment{
    }
 
 
+    //CREATING PUBLIC INTERFACE
     public interface OnButtonClickListener{
         //public void displayText(String userTextString);
         public void containZip(String zipString);
