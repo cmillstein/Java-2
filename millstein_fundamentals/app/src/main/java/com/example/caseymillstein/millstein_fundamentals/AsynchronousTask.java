@@ -1,6 +1,7 @@
 package com.example.caseymillstein.millstein_fundamentals;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
@@ -13,6 +14,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.w3c.dom.Text;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.net.URLConnection;
@@ -53,6 +55,8 @@ public class AsynchronousTask extends AsyncTask<URL, Integer, Weather> {
 
         }
 
+
+
         @Override
         protected Weather doInBackground(URL... _url) {
 
@@ -70,6 +74,7 @@ public class AsynchronousTask extends AsyncTask<URL, Integer, Weather> {
 
 
 
+
             try {
                 apiData = new JSONObject(jsonString);
             } catch (Exception e) {
@@ -77,12 +82,21 @@ public class AsynchronousTask extends AsyncTask<URL, Integer, Weather> {
                 apiData = null;
             }
 
+
+
             try {
                 if (apiData != null) {
                     store.setmCity(apiData.getString("name"));
+                    Log.i("TAG", "City" + apiData.get("name"));
+
                     store.setmWeatherMain(apiData.getJSONObject("main").getString("temp"));
+                    Log.i("TAG", "Temp" + apiData.getJSONObject("main").getString("temp"));
+
                     store.setmHumidity(apiData.getJSONObject("main").getString("humidity"));
+                    Log.i("TAG", "Humidity" + apiData.getJSONObject("main").getString("humidity"));
+
                     store.setmWeatherDescription(apiData.getJSONArray("weather").getJSONObject(0).getString("description"));
+                    Log.i("TAG", "Description" + apiData.getJSONArray("weather").getJSONObject(0).getString("description"));
 
 
                 }
@@ -94,9 +108,23 @@ public class AsynchronousTask extends AsyncTask<URL, Integer, Weather> {
             }
 
 
+
+            try{
+
+            }catch (Exception e){
+
+            }
+
+
+
+
+
             return store;
         }
-            protected void onPostExecute(Weather _weatherInfo){
+
+
+
+    protected void onPostExecute(Weather _weatherInfo){
 
 
 
