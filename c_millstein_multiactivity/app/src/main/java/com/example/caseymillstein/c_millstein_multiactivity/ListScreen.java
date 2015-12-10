@@ -1,5 +1,6 @@
 package com.example.caseymillstein.c_millstein_multiactivity;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.app.ListFragment;
 import android.content.Intent;
@@ -25,32 +26,72 @@ public class ListScreen extends ListFragment{
 
 
     public static final String TAG = "ListScreen.TAG";
+    private onClickListener buttonClickList;
 
 
+
+    public interface onClickListener{
+        public void listClick(PersonInfo listPerson);
+    }
+
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        if(activity instanceof onClickListener){
+            buttonClickList = (onClickListener)activity;
+        }else{
+            throw new IllegalArgumentException("It's wrong");
+        }
+    }
 
 
 
     @Override
-    public View onCreateView(LayoutInflater _inflater, ViewGroup _container, Bundle _savedInstanceState) {
-        View view = _inflater.inflate(R.layout.listscreen, _container, false);
+    public void onListItemClick(ListView l, View v, int position, long id) {
+        super.onListItemClick(l, v, position, id);
 
+        String name = (String) l.getItemAtPosition(position);
+        PersonInfo newPersonObject = new PersonInfo();
+        Bundle args = getArguments();
+        if (args != null && args.containsKey("key")) {
+            ArrayList<PersonInfo> personArray = (ArrayList<PersonInfo>) args.getSerializable("key");
+            for(PersonInfo morePeople:personArray){
+                if(morePeople.getmName().equals(name)){
+                    newPersonObject = morePeople;
+                    break;
+                }
+            }
 
+        }
 
-        return view;
+        buttonClickList.listClick(newPersonObject);
     }
+
+
+
+
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        View view = getView();
+        //View view = getView();
 
 
         Bundle args = getArguments();
         if(args != null && args.containsKey("key")){
             ArrayList<PersonInfo> personArray = (ArrayList<PersonInfo>)args.getSerializable("key");
-            //String[] stringArray = new String[personArray.size()];
-            ArrayAdapter<String> personAdapter = new ArrayAdapter<String>();
+            String[] stringArray = new String[personArray.size()];
+            int loop = 0;
+            for(PersonInfo individual:personArray){
+                stringArray[loop] = individual.getmName();
+                loop++;
+
+            }
+
+            ArrayAdapter<String> personAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, stringArray);
+            setListAdapter(personAdapter);
 
 
 
