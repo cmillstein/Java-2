@@ -2,6 +2,7 @@ package com.example.caseymillstein.c_millstein_multiactivity;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -26,6 +27,7 @@ public class ViewScreen extends Fragment{
     TextView ageReal;
     TextView schoolReal;
     Button deleteButton;
+    Button shareButton;
     private onDeleteButtonClick deletePerson;
 
     @Override
@@ -48,6 +50,9 @@ public class ViewScreen extends Fragment{
         ageReal = (TextView) view.findViewById(R.id.ageReal);
         schoolReal = (TextView) view.findViewById(R.id.schoolReal);
         deleteButton = (Button) view.findViewById(R.id.deleteButton);
+        shareButton = (Button) view.findViewById(R.id.shareButton);
+
+
 
 
         //DELETE BUTTON CLICK
@@ -61,6 +66,27 @@ public class ViewScreen extends Fragment{
                 if(args != null && args.containsKey("key")) {
                     PersonInfo personInfoAgain = (PersonInfo) args.getSerializable("key");
                     deletePerson.removePerson(personInfoAgain);
+
+                }
+            }
+        });
+
+        //SHARE BUTTON CLICK
+        shareButton.setOnClickListener(new View.OnClickListener() {
+
+
+            @Override
+            public void onClick(View v) {
+
+                Bundle args = getArguments();
+                if(args != null && args.containsKey("key")) {
+                    PersonInfo personInfoAgain = (PersonInfo) args.getSerializable("key");
+                    String objectOutput = "Name: " + personInfoAgain.getmName() + " Age: " + personInfoAgain.getmAge() + " School: " + personInfoAgain.getmSchool();
+                    Intent batmanIntent = new Intent(Intent.ACTION_SEND);
+                    batmanIntent.putExtra(Intent.EXTRA_TEXT, objectOutput);
+                    batmanIntent.setType("text/plain");
+                    startActivity(Intent.createChooser(batmanIntent, "Sharing is caring!"));
+
 
                 }
             }
@@ -92,6 +118,8 @@ public class ViewScreen extends Fragment{
         super.onActivityCreated(savedInstanceState);
 
         View view = getView();
+
+        //CREATE BUNDLE ARGUMENTS FOR NAME, AGE, SCHOOL
 
         Bundle args = getArguments();
         if(args != null && args.containsKey("key")){

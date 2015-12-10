@@ -95,6 +95,9 @@ public class AddScreen extends Fragment{
 
                 if(!name.isEmpty() && !age.isEmpty() && !school.isEmpty()){
                     buttonClick.savePersonData(name,age,school);
+                    addName.setText("");
+                    addAge.setText("");
+                    addSchool.setText("");
                 }else{
                     Toast.makeText(getActivity(), "No User Added!", Toast.LENGTH_SHORT).show();
 

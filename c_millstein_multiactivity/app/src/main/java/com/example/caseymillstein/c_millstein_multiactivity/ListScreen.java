@@ -69,6 +69,22 @@ public class ListScreen extends ListFragment{
     }
 
 
+    //UPDATING LIST
+    public void updateDisplayList(ArrayList<PersonInfo> returnPersonInfo){
+
+
+        String[] stringArray = new String[returnPersonInfo.size()];
+        int loop = 0;
+        for(PersonInfo individual:returnPersonInfo){
+            stringArray[loop] = individual.getmName();
+            loop++;
+
+        }
+
+        ArrayAdapter<String> personAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, stringArray);
+        setListAdapter(personAdapter);
+    }
+
 
 
 
@@ -81,17 +97,7 @@ public class ListScreen extends ListFragment{
 
         Bundle args = getArguments();
         if(args != null && args.containsKey("key")){
-            ArrayList<PersonInfo> personArray = (ArrayList<PersonInfo>)args.getSerializable("key");
-            String[] stringArray = new String[personArray.size()];
-            int loop = 0;
-            for(PersonInfo individual:personArray){
-                stringArray[loop] = individual.getmName();
-                loop++;
-
-            }
-
-            ArrayAdapter<String> personAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, stringArray);
-            setListAdapter(personAdapter);
+            updateDisplayList((ArrayList<PersonInfo>)args.getSerializable("key"));
 
 
 

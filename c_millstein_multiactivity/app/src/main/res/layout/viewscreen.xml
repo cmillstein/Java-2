@@ -67,5 +67,14 @@
         android:text="Delete User"
         android:id="@+id/deleteButton"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignStart="@+id/ageReal" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Share"
+        android:id="@+id/shareButton"
+        android:layout_alignTop="@+id/deleteButton"
+        android:layout_toEndOf="@+id/schoolReal"
+        android:layout_marginStart="23dp" />
 </RelativeLayout>

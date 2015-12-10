@@ -13,7 +13,7 @@ import java.util.ArrayList;
 /**
  * Created by caseymillstein on 12/8/15.
  */
-public class ViewScreenActivity extends AppCompatActivity {
+public class ViewScreenActivity extends AppCompatActivity implements ViewScreen.onDeleteButtonClick{
 
     public static final String TAG = "ViewScreen.TAG";
 
@@ -38,14 +38,19 @@ public class ViewScreenActivity extends AppCompatActivity {
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         if(resultCode == Activity.RESULT_OK && requestCode == 1){
-            //UPDATE LIST
-
 
 
         }
     }
 
 
+    //SENDING DATA BACKWARDS ----- RETURNING INTENT FROM REQUEST
+    @Override
+    public void removePerson(PersonInfo personData) {
+        Intent returnIntent = new Intent();
+        returnIntent.putExtra("key", personData);
+        setResult(RESULT_OK, returnIntent);
+        finish();
 
-
+    }
 }
