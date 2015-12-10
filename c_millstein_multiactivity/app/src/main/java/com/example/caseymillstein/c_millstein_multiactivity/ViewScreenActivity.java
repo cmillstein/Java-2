@@ -23,7 +23,9 @@ public class ViewScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_container);
 
-        ViewScreen tempList = ViewScreen.newInstance();
+        Intent newIntent = getIntent();
+        PersonInfo anotherOne = (PersonInfo)newIntent.getSerializableExtra("key");
+        ViewScreen tempList = ViewScreen.newInstance(anotherOne);
         getFragmentManager().beginTransaction()
                 .replace(R.id.viewContainer, tempList, ViewScreen.TAG)
                 .commit();
@@ -32,12 +34,7 @@ public class ViewScreenActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    public void listClick(PersonInfo newVariable){
-        Intent viewScreen = new Intent(this, ViewScreenActivity.class);
-        viewScreen.putExtra("key", newVariable);
-        startActivityForResult(viewScreen, 1);
-    }
+
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         if(resultCode == Activity.RESULT_OK && requestCode == 1){
@@ -49,14 +46,6 @@ public class ViewScreenActivity extends AppCompatActivity {
     }
 
 
-    public static ViewScreen newInstance(PersonInfo returnPerson) {
 
-        ViewScreen storeList = new ViewScreen();
-        Bundle args = new Bundle();
-        args.putSerializable("key", returnPerson);
-        storeList.setArguments(args);
-        return storeList;
-
-    }
 
 }

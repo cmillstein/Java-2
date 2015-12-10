@@ -89,8 +89,16 @@ public class AddScreen extends Fragment{
             @Override
             public void onClick(View v) {
 
+                String name = addName.getText().toString();
+                String age = addAge.getText().toString();
+                String school = addSchool.getText().toString();
 
-                buttonClick.savePersonData(addName.getText().toString(), addAge.getText().toString(), addSchool.getText().toString());
+                if(!name.isEmpty() && !age.isEmpty() && !school.isEmpty()){
+                    buttonClick.savePersonData(name,age,school);
+                }else{
+                    Toast.makeText(getActivity(), "No User Added!", Toast.LENGTH_SHORT).show();
+
+                }
 
             }
         });

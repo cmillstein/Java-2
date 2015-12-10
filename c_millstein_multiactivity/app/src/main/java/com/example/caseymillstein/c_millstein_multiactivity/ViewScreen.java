@@ -1,5 +1,6 @@
 package com.example.caseymillstein.c_millstein_multiactivity;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+
+import java.util.IllegalFormatCodePointException;
 
 /**
  * Created by caseymillstein on 12/5/15.
@@ -23,7 +26,19 @@ public class ViewScreen extends Fragment{
     TextView ageReal;
     TextView schoolReal;
     Button deleteButton;
+    private onDeleteButtonClick deletePerson;
 
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+
+        if(activity instanceof onDeleteButtonClick){
+            deletePerson = (onDeleteButtonClick)activity;
+        }else{
+            throw new IllegalArgumentException("Still Wrong Bro");
+        }
+
+    }
 
     @Override
     public View onCreateView(LayoutInflater _inflater, ViewGroup _container, Bundle _savedInstanceState){
@@ -42,14 +57,34 @@ public class ViewScreen extends Fragment{
             @Override
             public void onClick(View v) {
 
+                Bundle args = getArguments();
+                if(args != null && args.containsKey("key")) {
+                    PersonInfo personInfoAgain = (PersonInfo) args.getSerializable("key");
+                    deletePerson.removePerson(personInfoAgain);
 
-
+                }
             }
         });
 
 
+
         return  view;
     }
+
+    public static ViewScreen newInstance(PersonInfo returnPerson) {
+
+        ViewScreen storeList = new ViewScreen();
+        Bundle args = new Bundle();
+        args.putSerializable("key", returnPerson);
+        storeList.setArguments(args);
+        return storeList;
+
+    }
+
+    public interface onDeleteButtonClick{
+        public void removePerson(PersonInfo personData);
+    }
+
 
 
     @Override
