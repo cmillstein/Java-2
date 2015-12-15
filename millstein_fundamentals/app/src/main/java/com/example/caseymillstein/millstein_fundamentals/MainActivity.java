@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity implements WeatherListFragme
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
+        //Log.e(TAG, "WORKING");
 
 
     }
@@ -63,6 +63,7 @@ public class MainActivity extends AppCompatActivity implements WeatherListFragme
         Log.i("TAG", userTextString);
 
         if(isOnline()) {
+            Weather newObj = null;
 
             try {
                 String safeURL = FEED_URL + URLEncoder.encode(userTextString, "UTF-8") + ",us";
@@ -77,6 +78,17 @@ public class MainActivity extends AppCompatActivity implements WeatherListFragme
 
                 e.printStackTrace();
             }
+            try{
+                FileInputStream fis = openFileInput("File.txt");
+                ObjectInput ois = new ObjectInputStream(fis);
+                newObj = (Weather)ois.readObject();
+                ois.close();
+                Log.e(TAG, "Name: " + newObj.getCity());
+            }catch (Exception e){
+
+                Log.e(TAG, "First error");
+            }
+
         }else{
             DisplayFragment accessOffline = (DisplayFragment)getFragmentManager().findFragmentByTag(DisplayFragment.TAG);
             Weather newObj = null;
@@ -87,9 +99,11 @@ public class MainActivity extends AppCompatActivity implements WeatherListFragme
                 ois.close();
             }catch (Exception e){
 
+                Log.e(TAG, "First error");
             }
             if(newObj != null){
                 accessOffline = DisplayFragment.newInstance(newObj);
+                Log.e(TAG, "Not Null");
             }else{
                 accessOffline.setDetails(newObj.getmWeatherMain(), newObj.getCity(), newObj.getmHumidity(), newObj.getmWeatherDescription());
             }
@@ -188,6 +202,7 @@ public class MainActivity extends AppCompatActivity implements WeatherListFragme
 
             } catch (Exception e) {
 
+                Log.e(TAG, "Second Error");
             }
 
 
@@ -209,7 +224,6 @@ public class MainActivity extends AppCompatActivity implements WeatherListFragme
 
                 displayFrag.setDetails(_weatherInfo.getmWeatherMain(), _weatherInfo.getCity(), _weatherInfo.getmHumidity(), _weatherInfo.getmWeatherDescription());
             }
-
 
 
         }

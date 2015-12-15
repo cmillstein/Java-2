@@ -104,6 +104,7 @@ public class WeatherListFragment extends Fragment{
                 zipList.add(userText);
                 zipAdapter.notifyDataSetChanged();
                 zipCode.setText("");
+                mListener.containZip(userText);
 
 
             }
@@ -119,7 +120,7 @@ public class WeatherListFragment extends Fragment{
 
 
 
-                mListener.containZip(userText);
+
 
 
 

@@ -76,5 +76,5 @@
         android:id="@+id/shareButton"
         android:layout_alignTop="@+id/deleteButton"
         android:layout_toEndOf="@+id/schoolReal"
-        android:layout_marginStart="23dp" />
+        android:layout_marginStart="52dp" />
 </RelativeLayout>
