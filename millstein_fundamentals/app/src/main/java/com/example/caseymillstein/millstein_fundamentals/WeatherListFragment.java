@@ -45,7 +45,7 @@ public class WeatherListFragment extends Fragment{
 
     public static final String TAG = "WeatherListFragment.TAG";
 
-   public static WeatherListFragment newInstance(){
+   public static WeatherListFragment newInstance(ArrayList<Weather> newArrayList){
 
        WeatherListFragment weatherFrag = new WeatherListFragment();
        return weatherFrag;

@@ -192,18 +192,7 @@ public class MainActivity extends AppCompatActivity implements WeatherListFragme
             }
 
 
-            //CREATES FILE AND OPENS IT
-            try {
-                FileOutputStream outputStream = openFileOutput("File.txt", Context.MODE_PRIVATE);
-                ObjectOutputStream objStream = new ObjectOutputStream(outputStream);
-                objStream.writeObject(store);
-                objStream.close();
 
-
-            } catch (Exception e) {
-
-                Log.e(TAG, "Second Error");
-            }
 
 
             return store;
