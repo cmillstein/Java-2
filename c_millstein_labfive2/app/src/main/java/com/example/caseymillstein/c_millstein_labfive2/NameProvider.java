@@ -31,7 +31,10 @@ public class NameProvider extends ContentProvider {
     }
 
 
+    //CREATE -- READ -- UPDATE -- DELETE
 
+
+    //CREATE
     @Override
     public boolean onCreate() {
         myDatabase = new DatabaseHelper(getContext());
@@ -42,6 +45,7 @@ public class NameProvider extends ContentProvider {
     }
 
 
+    //CREATING CURSOR INFO
     @Override
     public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
 
@@ -76,6 +80,7 @@ public class NameProvider extends ContentProvider {
     }
 
 
+    //INSERTING URI
     @Override
     public Uri insert(Uri uri, ContentValues values) {
         int type = URIMatcher.match(uri);
@@ -99,6 +104,8 @@ public class NameProvider extends ContentProvider {
         return Uri.parse(DATA_SOURCE + "/" + id);
     }
 
+
+    //DELETE INFO
     @Override
     public int delete(Uri uri, String selection, String[] selectionArgs) {
 
@@ -127,6 +134,8 @@ public class NameProvider extends ContentProvider {
         return deleteRows;
     }
 
+
+    //UPDATE INFO
     @Override
     public int update(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
         int type = URIMatcher.match(uri);
@@ -160,7 +169,7 @@ public class NameProvider extends ContentProvider {
 
 
 
-        
+
 
         return updateRows;
 
