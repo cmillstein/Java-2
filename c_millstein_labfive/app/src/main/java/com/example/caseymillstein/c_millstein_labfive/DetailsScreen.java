@@ -13,6 +13,8 @@ import android.widget.TextView;
  */
 public class DetailsScreen extends Fragment{
 
+    public static final String TAG = "DetailsScreen.TAG";
+
     TextView nameReal;
     TextView ageReal;
     TextView schoolReal;

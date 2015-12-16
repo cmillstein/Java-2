@@ -9,9 +9,13 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by caseymillstein on 12/13/15.
@@ -64,6 +68,7 @@ public class FormScreen extends AppCompatActivity{
 
 
     }
+
 
 
 
