@@ -11,7 +11,6 @@ import android.net.Uri;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
-import java.net.URI;
 
 /**
  * Created by caseymillstein on 12/16/15.

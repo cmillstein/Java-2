@@ -59,6 +59,10 @@ public class ListActivity extends AppCompatActivity implements ListScreen.onList
                 //Put add stuff
                 Intent formActivity = new Intent(this,FormActivity.class);
                 startActivityForResult(formActivity, NEW_PEOPLE);
+                break;
+
+            default:
+                break;
         }
 
 

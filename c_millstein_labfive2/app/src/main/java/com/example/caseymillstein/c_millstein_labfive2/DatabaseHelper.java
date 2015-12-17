@@ -1,8 +1,10 @@
 package com.example.caseymillstein.c_millstein_labfive2;
 
+import android.content.ContentResolver;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.database.sqlite.SQLiteDatabase.CursorFactory;
 
 /**
  * Created by caseymillstein on 12/16/15.
@@ -10,6 +12,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
 
+    private ContentResolver cResolver;
 
 
     //CONSTANTS
@@ -28,14 +31,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String TABLE_CREATE =
             "CREATE TABLE " + TABLE_NAME + "(" +
                     STUDENT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                    NAME + " TEXT, " +
-                    AGE + " INTEGER, " +
+                    NAME + " TEXT," +
+                    AGE + " INTEGER," +
                     SCHOOL + " TEXT)";
 
 
 
     public DatabaseHelper (Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        cResolver = context.getContentResolver();
     }
 
     //CREATING DATABASE
