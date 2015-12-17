@@ -49,15 +49,17 @@ public class FormScreen extends Fragment {
 
 
     @Override
+    public View onCreateView(LayoutInflater _inflater, ViewGroup _container, Bundle _savedInstanceState){
+        return _inflater.inflate(R.layout.formscreen, _container, false);
+    }
+
+
+    @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.form, menu);
 
     }
 
-    @Override
-    public View onCreateView(LayoutInflater _inflater, ViewGroup _container, Bundle _savedInstanceState){
-        return _inflater.inflate(R.layout.formscreen, _container, false);
-    }
 
 
     @Override

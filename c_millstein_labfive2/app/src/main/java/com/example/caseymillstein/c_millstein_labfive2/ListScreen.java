@@ -1,9 +1,12 @@
 package com.example.caseymillstein.c_millstein_labfive2;
 
 import android.app.ListFragment;
+import android.content.ContentValues;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.CursorAdapter;
 import android.widget.ListView;
@@ -56,8 +59,14 @@ public class ListScreen extends ListFragment {
 
         mListener = (onListItemSelection) getActivity();
         Uri info = Uri.parse(NameProvider.CONTENT_URI + "/" + id);
+        Log.e(TAG, "uri: " + info);
         mListener.passURI(info);
 
 
+
     }
+
+
+
+
 }

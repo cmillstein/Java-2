@@ -4,6 +4,7 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
 import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
@@ -38,7 +39,40 @@ public class ListActivity extends AppCompatActivity implements ListScreen.onList
 
     }
 
-    //Action Bar
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(resultCode == RESULT_OK && requestCode == NEW_PEOPLE){
+            Bundle args = data.getExtras();
+            ContentValues values = new ContentValues();
+            values.put(DatabaseHelper.NAME, args.get("Name").toString());
+            values.put(DatabaseHelper.AGE, args.getInt("Age"));
+            values.put(DatabaseHelper.SCHOOL, args.get("School").toString());
+            getContentResolver().insert(NameProvider.CONTENT_URI, values);
+        }else if(resultCode == RESULT_OK && requestCode == UPDATED_PEOPLE){
+            Bundle rslt = data.getExtras();
+            String personID = (String) rslt.get("ID");
+            String switchIt = rslt.getString("SWITCH");
+            if(switchIt.equals("update")){
+                ContentValues values = new ContentValues();
+                values.put(DatabaseHelper.NAME, rslt.get("Name").toString());
+                values.put(DatabaseHelper.AGE, rslt.getInt("Age"));
+                values.put(DatabaseHelper.SCHOOL, rslt.get("School").toString());
+                getContentResolver().update(NameProvider.CONTENT_URI, values, personID, null);
+            }else{
+                getContentResolver().delete(NameProvider.CONTENT_URI, personID, null);
+            }
+        }
+
+    }
+
+
+
+
+    //Action Bar Info
 
 
     @Override
@@ -71,29 +105,19 @@ public class ListActivity extends AppCompatActivity implements ListScreen.onList
 
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if(resultCode == RESULT_OK && requestCode == NEW_PEOPLE){
-            Bundle args = data.getExtras();
-            ContentValues values = new ContentValues();
-            values.put(DatabaseHelper.NAME, args.get("Name").toString());
-            values.put(DatabaseHelper.AGE, args.getInt("Age"));
-            values.put(DatabaseHelper.SCHOOL, args.get("School").toString());
-            getContentResolver().insert(NameProvider.CONTENT_URI, values);
-        }else if(resultCode == RESULT_OK && requestCode == UPDATED_PEOPLE){
-            //FILL IN
-        }
-
-    }
-
-    @Override
     public void passURI(Uri uri){
         Intent detailScreen = new Intent(this, DetailsActivity.class);
         detailScreen.putExtra("URI", uri);
         startActivityForResult(detailScreen, UPDATED_PEOPLE);
 
     }
+
+
+
+
+
+
+
 
 
 

@@ -5,6 +5,7 @@ import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
 
 import java.text.Normalizer;
 import java.util.List;
@@ -35,9 +36,6 @@ public class FormActivity extends AppCompatActivity implements FormScreen.onActi
 
     }
 
-
-
-
     @Override
     public void saveInfo(String name, int age, String school) {
         Intent listActivity = new Intent(this, ListActivity.class);
@@ -45,6 +43,7 @@ public class FormActivity extends AppCompatActivity implements FormScreen.onActi
         listActivity.putExtra("Age", age);
         listActivity.putExtra("School", school);
         setResult(RESULT_OK, listActivity);
+        Toast.makeText(FormActivity.this, "Person Added", Toast.LENGTH_SHORT).show();
         finish();
     }
 }
