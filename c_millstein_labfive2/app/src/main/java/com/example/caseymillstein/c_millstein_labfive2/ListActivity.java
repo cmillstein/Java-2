@@ -2,14 +2,19 @@ package com.example.caseymillstein.c_millstein_labfive2;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.ContentValues;
 import android.content.Intent;
+import android.net.Uri;
+import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
-public class ListActivity extends AppCompatActivity {
+import java.util.jar.Attributes;
+
+public class ListActivity extends AppCompatActivity implements ListScreen.onListItemSelection{
 
     public static final int NEW_PEOPLE = 1;
     public static final int UPDATED_PEOPLE = 2;
@@ -59,4 +64,33 @@ public class ListActivity extends AppCompatActivity {
 
         return true;
     }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(resultCode == RESULT_OK && requestCode == NEW_PEOPLE){
+            Bundle args = data.getExtras();
+            ContentValues values = new ContentValues();
+            values.put(DatabaseHelper.NAME, args.get("Name").toString());
+            values.put(DatabaseHelper.AGE, args.getInt("Age"));
+            values.put(DatabaseHelper.SCHOOL, args.get("School").toString());
+            getContentResolver().insert(NameProvider.CONTENT_URI, values);
+        }else if(resultCode == RESULT_OK && requestCode == UPDATED_PEOPLE){
+            //FILL IN
+        }
+
+    }
+
+    @Override
+    public void passURI(Uri uri){
+        Intent detailScreen = new Intent(this, DetailsActivity.class);
+        detailScreen.putExtra("URI", uri);
+        startActivityForResult(detailScreen, UPDATED_PEOPLE);
+
+    }
+
+
+
 }

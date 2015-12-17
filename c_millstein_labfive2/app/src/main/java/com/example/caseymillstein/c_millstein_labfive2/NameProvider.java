@@ -5,6 +5,7 @@ import android.content.ContentValues;
 import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 import android.support.annotation.Nullable;
@@ -34,12 +35,13 @@ public class NameProvider extends ContentProvider {
     //CREATE -- READ -- UPDATE -- DELETE
 
 
+
+
     //CREATE
     @Override
     public boolean onCreate() {
+
         myDatabase = new DatabaseHelper(getContext());
-
-
 
         return true;
     }
