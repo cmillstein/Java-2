@@ -43,7 +43,7 @@ public class ListScreen extends ListFragment {
         int[] bindto = {android.R.id.text1};
 
         person = getActivity().getContentResolver().query(NameProvider.CONTENT_URI, projection, null, null, null);
-        cAdapter = new SimpleCursorAdapter(getActivity().getApplicationContext(), android.R.layout.simple_list_item_1, person, bindFrom, bindto, 1);
+        cAdapter = new SimpleCursorAdapter(getActivity().getBaseContext(), android.R.layout.simple_list_item_1, person, bindFrom, bindto, 1);
         setListAdapter(cAdapter);
 
 
