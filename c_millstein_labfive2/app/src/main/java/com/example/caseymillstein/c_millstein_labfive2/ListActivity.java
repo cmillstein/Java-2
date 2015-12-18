@@ -48,19 +48,22 @@ public class ListActivity extends AppCompatActivity implements ListScreen.onList
         if(resultCode == RESULT_OK && requestCode == NEW_PEOPLE){
             Bundle args = data.getExtras();
             ContentValues values = new ContentValues();
-            values.put(DatabaseHelper.NAME, args.get("Name").toString());
-            values.put(DatabaseHelper.AGE, args.getInt("Age"));
-            values.put(DatabaseHelper.SCHOOL, args.get("School").toString());
+            values.put(DatabaseHelper.NAME, args.get("name").toString());
+            values.put(DatabaseHelper.AGE, args.getInt("age"));
+            values.put(DatabaseHelper.SCHOOL, args.get("school").toString());
             getContentResolver().insert(NameProvider.CONTENT_URI, values);
+
+
         }else if(resultCode == RESULT_OK && requestCode == UPDATED_PEOPLE){
+
             Bundle rslt = data.getExtras();
             String personID = (String) rslt.get("ID");
             String switchIt = rslt.getString("SWITCH");
             if(switchIt.equals("update")){
                 ContentValues values = new ContentValues();
-                values.put(DatabaseHelper.NAME, rslt.get("Name").toString());
-                values.put(DatabaseHelper.AGE, rslt.getInt("Age"));
-                values.put(DatabaseHelper.SCHOOL, rslt.get("School").toString());
+                values.put(DatabaseHelper.NAME, rslt.get("name").toString());
+                values.put(DatabaseHelper.AGE, rslt.getInt("age"));
+                values.put(DatabaseHelper.SCHOOL, rslt.get("school").toString());
                 getContentResolver().update(NameProvider.CONTENT_URI, values, personID, null);
             }else{
                 getContentResolver().delete(NameProvider.CONTENT_URI, personID, null);

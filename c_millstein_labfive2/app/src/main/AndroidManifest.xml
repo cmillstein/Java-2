@@ -21,7 +21,8 @@
         <provider
             android:authorities="com.example.caseymillstein.c_millstein_labfive2.NameProvider"
             android:name=".NameProvider"
-            android:exported="false" />
+            android:enabled="true"
+            android:exported="true" />
 
     </application>
 

@@ -63,7 +63,6 @@ public class ListScreen extends ListFragment {
         mListener.passURI(info);
 
 
-
     }
 
 

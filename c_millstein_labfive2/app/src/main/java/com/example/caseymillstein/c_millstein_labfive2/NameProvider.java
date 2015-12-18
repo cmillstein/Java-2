@@ -110,22 +110,31 @@ public class NameProvider extends ContentProvider {
     @Override
     public int delete(Uri uri, String selection, String[] selectionArgs) {
 
-        int type = URIMatcher.match(uri);
-        SQLiteDatabase sqdb = myDatabase.getWritableDatabase();
+        int UriType = URIMatcher.match(uri);
+        SQLiteDatabase sqlDB = myDatabase.getWritableDatabase();
         int deleteRows;
 
-        switch(type){
+        switch (UriType){
+            case PERSON:
+                deleteRows = sqlDB.delete(DatabaseHelper.TABLE_NAME, selection, selectionArgs);
+                break;
+
             case PERSON_ID:
                 String id = uri.getLastPathSegment();
                 if(TextUtils.isEmpty(selection)){
-                    deleteRows = sqdb.delete(DatabaseHelper.TABLE_NAME, DatabaseHelper.STUDENT_ID + "=" + id, null);
-                }else{
-                    deleteRows = sqdb.delete(DatabaseHelper.TABLE_NAME, DatabaseHelper.STUDENT_ID + "=" + id + "and" + selection, selectionArgs);
+
+                    deleteRows = sqlDB.delete(DatabaseHelper.TABLE_NAME, DatabaseHelper.STUDENT_ID + "=" + id, null);
+
+                } else{
+
+                    deleteRows = sqlDB.delete(DatabaseHelper.TABLE_NAME, DatabaseHelper.STUDENT_ID + "=" + id + "and" + selection, selectionArgs);
+
                 }
                 break;
 
             default:
-                throw new IllegalArgumentException("URI Not Valid: " + uri);
+                throw new IllegalArgumentException("Invalid URI: " + uri);
+
         }
 
         getContext().getContentResolver().notifyChange(uri, null);
@@ -133,6 +142,7 @@ public class NameProvider extends ContentProvider {
 
 
         return deleteRows;
+
     }
 
 
