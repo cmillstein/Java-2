@@ -51,6 +51,8 @@ public class DetailsActivity extends AppCompatActivity implements DetailsScreen.
         }
 
 
+        //Setting Info To Text Views
+
         nameReal = people.getString(people.getColumnIndex(DatabaseHelper.NAME));
         ageReal = people.getString(people.getColumnIndex(DatabaseHelper.AGE));
         schoolReal = people.getString(people.getColumnIndex(DatabaseHelper.SCHOOL));
@@ -78,6 +80,7 @@ public class DetailsActivity extends AppCompatActivity implements DetailsScreen.
 
     }
 
+    //Action Bar Detail Info
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
@@ -88,6 +91,7 @@ public class DetailsActivity extends AppCompatActivity implements DetailsScreen.
     }
 
 
+    //Update Method Intent
     @Override
     public void update(String name, String age, String school) {
 
@@ -106,6 +110,7 @@ public class DetailsActivity extends AppCompatActivity implements DetailsScreen.
 
     }
 
+    //Delete Method INtent
     @Override
     public void delete() {
 
@@ -117,6 +122,7 @@ public class DetailsActivity extends AppCompatActivity implements DetailsScreen.
     }
 
 
+    //Receiving info from detailscreen
     void infoRecieve(String name, String age, String school){
         detailScreen = DetailsScreen.newInstance(name, age, school);
         getFragmentManager().beginTransaction().replace(R.id.detail_container, detailScreen, DetailsScreen.TAG).commit();

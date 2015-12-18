@@ -40,6 +40,7 @@ public class ListActivity extends AppCompatActivity implements ListScreen.onList
     }
 
 
+    //Getting results from Database and setting the info to values
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

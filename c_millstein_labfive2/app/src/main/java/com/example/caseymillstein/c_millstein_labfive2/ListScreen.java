@@ -37,6 +37,7 @@ public class ListScreen extends ListFragment {
         void passURI(Uri uri);
     }
 
+    //Creating the listview array and adapter
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -53,6 +54,7 @@ public class ListScreen extends ListFragment {
     }
 
 
+    //Clicking each item in the listview
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
